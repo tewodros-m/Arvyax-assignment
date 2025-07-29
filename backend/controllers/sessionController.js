@@ -1,9 +1,10 @@
 import Session from '../models/Session.js';
+import { SessionStatus } from '../enums/sessionStatus.js';
 
 // Public sessions (published)
 export const getPublicSessions = async (req, res) => {
   try {
-    const sessions = await Session.find({ status: 'published' });
+    const sessions = await Session.find({ status: SessionStatus.PUBLISHED });
     res.json(sessions);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch sessions' });
@@ -76,7 +77,7 @@ export const publishSession = async (req, res) => {
           title,
           tags,
           json_file_url,
-          status: 'published',
+          status: SessionStatus.PUBLISHED,
           updated_at: new Date(),
         },
         { new: true }
@@ -90,7 +91,7 @@ export const publishSession = async (req, res) => {
         title,
         tags,
         json_file_url,
-        status: 'published',
+        status: SessionStatus.PUBLISHED,
       });
     }
 
