@@ -8,7 +8,7 @@ function SessionCard({ session, onClick }) {
       onClick={onClick}
       className={`border border-green-600 rounded p-4 bg-white shadow-sm hover:shadow-md transition ${
         onClick ? 'cursor-pointer' : ''
-      } hover:bg-gray-50 hover:border-green-300 `}
+      }  hover:border-green-300 `}
     >
       <div className='flex justify-between items-center mb-2'>
         <h2 className='text-lg font-semibold text-gray-800'>{title}</h2>
