@@ -29,13 +29,15 @@ function Dashboard() {
   if (error) return <p className='text-center mt-10 text-red-500'>{error}</p>;
 
   return (
-    <div className='max-w-4xl mx-auto px-4 py-8'>
-      <h1 className='text-2xl font-bold mb-6'>Wellness Sessions</h1>
+    <div className='max-w-6xl mx-auto px-4 py-8'>
+      <h1 className='text-2xl font-bold mb-6 text-center sm:text-left'>
+        Wellness Sessions
+      </h1>
 
       {sessions.length === 0 ? (
-        <p>No sessions found.</p>
+        <p className='text-center text-gray-500'>No sessions found.</p>
       ) : (
-        <div className='space-y-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
           {sessions.map((session) => (
             <SessionCard key={session._id} session={session} />
           ))}

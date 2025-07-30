@@ -94,50 +94,54 @@ function SessionEditor() {
   if (loadingSession) return <Spinner />;
 
   return (
-    <div className='max-w-xl mx-auto p-6'>
+    <div className='max-w-2xl mx-auto px-4 sm:px-6 pt-10 pb-16 border-2 border-green-100 rounded'>
       {id && (
         <button
           onClick={() => navigate('/my-sessions')}
-          className='text-green-600 mb-4 cursor-pointer'
+          className='text-green-600 mb-4 cursor-pointer text-sm'
         >
-          <span className='inline-block transform -translate-y-1 '>&larr;</span>
+          <span className='inline-block transform -translate-y-1'>&larr;</span>{' '}
           Back
         </button>
       )}
-      <h1 className='text-2xl font-bold mb-4'>
+
+      <h1 className='text-2xl font-bold mb-6 text-center sm:text-left'>
         {id ? 'Edit' : 'Create'} Session
       </h1>
 
-      <Input
-        label='Session Title'
-        name='title'
-        value={form.title}
-        onChange={handleChange}
-        placeholder='Eg. Morning Meditation'
-      />
+      <div className='space-y-5'>
+        <Input
+          label='Session Title'
+          name='title'
+          value={form.title}
+          onChange={handleChange}
+          placeholder='Eg. Morning Meditation'
+        />
 
-      <Input
-        label='Tags (comma-separated)'
-        name='tags'
-        value={form.tags}
-        onChange={handleChange}
-        placeholder='Eg. stretching, yoga, ...'
-      />
+        <Input
+          label='Tags (comma-separated)'
+          name='tags'
+          value={form.tags}
+          onChange={handleChange}
+          placeholder='Eg. tag1, tag2, ...'
+        />
 
-      <Input
-        label='JSON File URL'
-        name='json_file_url'
-        value={form.json_file_url}
-        onChange={handleChange}
-        placeholder='Eg. https://example.com/file.json'
-      />
+        <Input
+          label='JSON File URL'
+          name='json_file_url'
+          value={form.json_file_url}
+          onChange={handleChange}
+          placeholder='Eg. https://example.com/file.json'
+        />
+      </div>
 
-      <div className='flex gap-4'>
+      <div className='flex flex-col sm:flex-row gap-4 mt-8'>
         <Button
           onClick={() => handleSaveDraft(false)}
           color='gray'
           isLoading={saving}
           disabled={!form.title || !form.json_file_url || !form.tags}
+          fullWidth
         >
           Save Draft
         </Button>
@@ -147,6 +151,7 @@ function SessionEditor() {
           color='green'
           isLoading={publishing}
           disabled={!form.title || !form.json_file_url || !form.tags}
+          fullWidth
         >
           Publish
         </Button>

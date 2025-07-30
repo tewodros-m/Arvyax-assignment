@@ -31,21 +31,25 @@ function MySessions() {
   if (error) return <p className='text-center mt-10 text-red-500'>{error}</p>;
 
   return (
-    <div className='max-w-4xl mx-auto px-4 py-8'>
-      <div className='flex justify-between items-center mb-6'>
-        <h1 className='text-2xl font-bold'>My Sessions</h1>
+    <div className='max-w-6xl mx-auto px-4 py-8'>
+      <div className='flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6'>
+        <h1 className='text-2xl font-bold text-center sm:text-left'>
+          My Sessions
+        </h1>
         <button
           onClick={() => navigate('/session-editor')}
-          className='bg-green-600 text-white px-4 py-2 rounded'
+          className='bg-green-600 text-white px-4 py-2 rounded text-sm sm:text-base w-full sm:w-auto'
         >
           + New Session
         </button>
       </div>
 
       {sessions.length === 0 ? (
-        <p>You haven't created any sessions yet.</p>
+        <p className='text-center text-gray-500'>
+          You haven't created any sessions yet.
+        </p>
       ) : (
-        <div className='space-y-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
           {sessions.map((session) => (
             <SessionCard
               key={session._id}
