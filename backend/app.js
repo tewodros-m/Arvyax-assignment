@@ -11,8 +11,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
+    origin: 'https://arvyax-assignment-1.vercel.app',
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 app.use(express.json());
