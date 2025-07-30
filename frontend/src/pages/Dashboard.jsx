@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import api from '../api/axios';
 import SessionCard from '../components/SessionCard';
+import Spinner from '../components/Spinner';
 
 function Dashboard() {
   const [sessions, setSessions] = useState([]);
@@ -24,7 +25,7 @@ function Dashboard() {
     fetchSessions();
   }, []);
 
-  if (loading) return <p className='text-center mt-10'>Loading sessions...</p>;
+  if (loading) return <Spinner />;
   if (error) return <p className='text-center mt-10 text-red-500'>{error}</p>;
 
   return (

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import api from '../api/axios';
 import SessionCard from '../components/SessionCard';
+import Spinner from '../components/Spinner';
 
 function MySessions() {
   const [sessions, setSessions] = useState([]);
@@ -26,7 +27,7 @@ function MySessions() {
     fetchMySessions();
   }, []);
 
-  if (loading) return <p className='text-center mt-10'>Loading...</p>;
+  if (loading) return <Spinner />;
   if (error) return <p className='text-center mt-10 text-red-500'>{error}</p>;
 
   return (

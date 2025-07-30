@@ -5,6 +5,7 @@ import api from '../api/axios';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import toast from 'react-hot-toast';
+import Spinner from '../components/Spinner';
 
 function SessionEditor() {
   const { id } = useParams(); // optional session ID
@@ -18,10 +19,12 @@ function SessionEditor() {
   const timeoutRef = useRef(null);
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [loadingSession, setLoadingSession] = useState(false);
 
   // Load existing session if editing
   useEffect(() => {
     if (id) {
+      setLoadingSession(true);
       api
         .get(`/my-sessions/${id}`)
         .then((res) => {
@@ -33,7 +36,8 @@ function SessionEditor() {
             json_file_url: session.json_file_url || '',
           });
         })
-        .catch(() => toast.error('Error loading session'));
+        .catch(() => toast.error('Error loading session'))
+        .finally(() => setLoadingSession(false));
     }
   }, [id]);
 
@@ -86,6 +90,8 @@ function SessionEditor() {
       setPublishing(false);
     }
   };
+
+  if (loadingSession) return <Spinner />;
 
   return (
     <div className='max-w-xl mx-auto p-6'>
