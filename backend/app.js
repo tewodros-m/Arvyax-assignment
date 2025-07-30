@@ -9,10 +9,22 @@ import { connectDB } from './config/db.js';
 dotenv.config();
 const app = express();
 
+const allowedOrigins = [
+  'https://arvyax-assignment-1.vercel.app',
+  'http://localhost:5173',
+];
+
 app.use(
   cors({
-    origin: 'https://arvyax-assignment-1.vercel.app',
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like Postman, curl)
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('Not allowed by CORS'));
+    },
     allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   })
 );
 app.use(express.json());
