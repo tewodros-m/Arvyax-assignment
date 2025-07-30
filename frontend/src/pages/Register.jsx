@@ -36,6 +36,7 @@ function Register() {
         <h2 className='text-xl font-semibold mb-4'>Register</h2>
 
         <Input
+          label='Email'
           name='email'
           type='email'
           placeholder='Email'
@@ -44,6 +45,7 @@ function Register() {
         />
 
         <Input
+          label='Password'
           name='password'
           type='password'
           placeholder='Password'

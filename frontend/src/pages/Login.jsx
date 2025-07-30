@@ -36,6 +36,7 @@ function Login() {
         <h2 className='text-xl font-semibold mb-4'>Login</h2>
 
         <Input
+          label='Email'
           name='email'
           type='email'
           value={form.email}
@@ -44,6 +45,7 @@ function Login() {
         />
 
         <Input
+          label='Password'
           name='password'
           type='password'
           value={form.password}
