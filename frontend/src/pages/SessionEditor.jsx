@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import toast from 'react-hot-toast';
 
 function SessionEditor() {
   const { id } = useParams(); // optional session ID
@@ -14,8 +15,9 @@ function SessionEditor() {
     json_file_url: '',
     id: null,
   });
-  const [status, setStatus] = useState(''); // save feedback
   const timeoutRef = useRef(null);
+  const [saving, setSaving] = useState(false);
+  const [publishing, setPublishing] = useState(false);
 
   // Load existing session if editing
   useEffect(() => {
@@ -31,7 +33,7 @@ function SessionEditor() {
             json_file_url: session.json_file_url || '',
           });
         })
-        .catch(() => setStatus('Error loading session'));
+        .catch(() => toast.error('Error loading session'));
     }
   }, [id]);
 
@@ -49,6 +51,7 @@ function SessionEditor() {
   };
 
   const handleSaveDraft = async (silent = false) => {
+    if (!silent) setSaving(true);
     try {
       const payload = {
         ...form,
@@ -56,25 +59,31 @@ function SessionEditor() {
       };
       const res = await api.post('/my-sessions/save-draft', payload);
       setForm((f) => ({ ...f, id: res.data._id }));
-      if (!silent) setStatus('Draft saved');
+      if (!silent) toast.success('Draft saved successfully!');
     } catch (err) {
       console.error('Error saving draft:', err);
-      if (!silent) setStatus('Failed to save draft');
+      if (!silent) toast.error('Failed to save draft session');
+    } finally {
+      if (!silent) setSaving(false);
     }
   };
 
+  // const handlePublish = async () => {
   const handlePublish = async () => {
+    setPublishing(true);
     try {
       const payload = {
         ...form,
         tags: form.tags.split(',').map((tag) => tag.trim()),
       };
       await api.post('/my-sessions/publish', payload);
-      setStatus('Session published');
+      toast.success('Session published successfully!');
       navigate('/my-sessions');
     } catch (err) {
       console.log('Error publishing session:', err);
-      setStatus('Failed to publish');
+      toast.error('Failed to publish session');
+    } finally {
+      setPublishing(false);
     }
   };
 
@@ -92,8 +101,6 @@ function SessionEditor() {
       <h1 className='text-2xl font-bold mb-4'>
         {id ? 'Edit' : 'Create'} Session
       </h1>
-
-      {status && <p className='text-sm text-green-600 mb-2'>{status}</p>}
 
       <Input
         label='Session Title'
@@ -120,11 +127,21 @@ function SessionEditor() {
       />
 
       <div className='flex gap-4'>
-        <Button onClick={() => handleSaveDraft(false)} color='gray'>
+        <Button
+          onClick={() => handleSaveDraft(false)}
+          color='gray'
+          isLoading={saving}
+          disabled={!form.title || !form.json_file_url || !form.tags}
+        >
           Save Draft
         </Button>
 
-        <Button onClick={handlePublish} color='green'>
+        <Button
+          onClick={handlePublish}
+          color='green'
+          isLoading={publishing}
+          disabled={!form.title || !form.json_file_url || !form.tags}
+        >
           Publish
         </Button>
       </div>

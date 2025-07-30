@@ -46,7 +46,7 @@ function NavBar() {
 
         <button
           onClick={logout}
-          className='text-red-500 hover:underline text-sm'
+          className='text-red-500 hover:underline text-sm cursor-pointer'
         >
           Logout
         </button>
