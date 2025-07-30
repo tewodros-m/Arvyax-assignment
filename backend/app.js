@@ -40,7 +40,7 @@ app.listen(PORT, () => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(500).json({ message: err.message || 'Internal server error' });
 });
 
 app.use((req, res) => {
