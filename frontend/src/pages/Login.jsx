@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../hooks/useAuth';
+import Input from '../components/Input';
+import Button from '../components/Button';
 
 function Login() {
   const { login } = useAuth();
@@ -30,32 +32,29 @@ function Login() {
         <h2 className='text-xl font-semibold mb-4'>Login</h2>
         {error && <p className='text-red-500 text-sm'>{error}</p>}
 
-        <input
+        <Input
           name='email'
           type='email'
-          placeholder='Email'
           value={form.email}
           onChange={handleChange}
-          required
-          className='w-full p-2 border rounded mb-3'
+          placeholder='Email'
         />
 
-        <input
+        <Input
           name='password'
           type='password'
-          placeholder='Password'
           value={form.password}
           onChange={handleChange}
-          required
-          className='w-full p-2 border rounded mb-4'
+          placeholder='Password'
         />
 
-        <button
+        <Button
           type='submit'
           className='w-full bg-green-600 text-white p-2 rounded'
+          fullWidth={true}
         >
           Login
-        </button>
+        </Button>
 
         <p className='text-sm mt-4 text-center'>
           Don't have an account?{' '}
