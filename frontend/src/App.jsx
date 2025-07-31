@@ -15,10 +15,17 @@ function App() {
 
   if (loading) return <p>Loading auth...</p>; // or a spinner
 
+  // Determine the default landing page based on auth status
+  const defaultLandingPage = user ? '/dashboard' : '/login';
+
   return (
     <>
       {user && <NavBar />}
       <Routes>
+        <Route
+          path='/'
+          element={<Navigate to={defaultLandingPage} replace />}
+        />
         <Route
           path='/login'
           element={user ? <Navigate to='/dashboard' replace /> : <Login />}
