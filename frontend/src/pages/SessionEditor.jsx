@@ -20,6 +20,7 @@ function SessionEditor() {
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [loadingSession, setLoadingSession] = useState(false);
+  const [status, setStatus] = useState(''); // save feedback
 
   // Load existing session if editing
   useEffect(() => {
@@ -46,6 +47,7 @@ function SessionEditor() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       handleSaveDraft(true);
+      setStatus('Draft auto-saved');
     }, 5000);
     return () => clearTimeout(timeoutRef.current);
   }, [form]);
@@ -64,6 +66,7 @@ function SessionEditor() {
       const res = await api.post('/my-sessions/save-draft', payload);
       setForm((f) => ({ ...f, id: res.data._id }));
       if (!silent) toast.success('Draft saved successfully!');
+      navigate('/my-sessions');
     } catch (err) {
       console.error('Error saving draft:', err);
       if (!silent) toast.error('Failed to save draft session');
@@ -108,6 +111,7 @@ function SessionEditor() {
       <h1 className='text-2xl font-bold mb-6 text-center sm:text-left'>
         {id ? 'Edit' : 'Create'} Session
       </h1>
+      {status && <p className='text-sm text-green-600 mb-2'>{status}</p>}
 
       <div className='space-y-5'>
         <Input
