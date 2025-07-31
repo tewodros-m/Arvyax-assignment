@@ -7,10 +7,11 @@ import Dashboard from './pages/Dashboard';
 import MySessions from './pages/MySessions';
 import SessionEditor from './pages/SessionEditor';
 import NavBar from './components/NavBar';
+import NotFound from './pages/NotFound';
+import ProtecteRoute from './components/ProtectRoute';
 
 function App() {
   const { user, loading } = useAuth();
-  // console.log('[App] user value:', user);
 
   if (loading) return <p>Loading auth...</p>; // or a spinner
 
@@ -20,30 +21,46 @@ function App() {
       <Routes>
         <Route
           path='/login'
-          element={!user ? <Login /> : <Navigate to='/dashboard' />}
+          element={user ? <Navigate to='/dashboard' replace /> : <Login />}
         />
         <Route
           path='/register'
-          element={!user ? <Register /> : <Navigate to='/dashboard' />}
+          element={user ? <Navigate to='/dashboard' replace /> : <Register />}
         />
         <Route
           path='/dashboard'
-          element={user ? <Dashboard /> : <Navigate to='/login' />}
+          element={
+            <ProtecteRoute>
+              <Dashboard />
+            </ProtecteRoute>
+          }
         />
         <Route
           path='/my-sessions'
-          element={user ? <MySessions /> : <Navigate to='/login' />}
+          element={
+            <ProtecteRoute>
+              <MySessions />
+            </ProtecteRoute>
+          }
         />
         <Route
           path='/session-editor'
-          element={user ? <SessionEditor /> : <Navigate to='/login' />}
+          element={
+            <ProtecteRoute>
+              <SessionEditor />
+            </ProtecteRoute>
+          }
         />
         <Route
           path='/session-editor/:id'
-          element={user ? <SessionEditor /> : <Navigate to='/login' />}
+          element={
+            <ProtecteRoute>
+              <SessionEditor />
+            </ProtecteRoute>
+          }
         />
 
-        <Route path='*' element={<Navigate to='/dashboard' />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </>
   );
