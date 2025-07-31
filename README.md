@@ -6,7 +6,7 @@ A full-stack session management platform built with the **MERN stack**. Users ca
 
 ## 🔗 Live Demo
 
-[Live Website](https://arvyax-assignment-1.vercel.app)  
+[Live Demo](https://arvyax-assignment-1.vercel.app)  
 [API Endpoint](https://arvyax-assignment-backend.onrender.com)
 
 - **Register and login for testing or use**: Email: `test@test.com` password: `test1234`
@@ -22,11 +22,16 @@ A full-stack session management platform built with the **MERN stack**. Users ca
 
 ---
 
+## Prerequisites
+
+- Node js V18+
+- MongoDB
+
 ## Clone & Setup
 
 ```bash
 clone the repository
-cd arvyax-assignment
+open the project with visual studio code or your favorite editor
 ```
 
 ## Backend Setup
@@ -84,7 +89,7 @@ Manually copy .env.example files into your .env
 npm run dev
 ```
 
-Frontend will be available at:  
+Open your browser at  
 `http://localhost:5173`
 
 ---
