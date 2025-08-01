@@ -45,7 +45,7 @@ function SessionCard({ session, onClick }) {
           target='_blank'
           rel='noopener noreferrer'
           className='text-blue-600 text-sm underline inline-block mt-2'
-          onClick={(e) => e.stopPropagation()}
+          // onClick={(e) => e.stopPropagation()}
         >
           View JSON
         </a>
