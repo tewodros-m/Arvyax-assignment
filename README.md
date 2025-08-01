@@ -45,12 +45,14 @@ npm install
 
 ### 2. Environment Variables
 
-Create a `.env` file in `/backend` folder
+Create a `.env` file in `/backend` folder and add the following
 
 ```bash
-cp .env.example .env
-OR
-Manually copy .env.example files into your .env
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/arvyax
+JWT_SECRET=asdfladjflkjasdf
+JWT_EXPIRES_IN=1d
+
 ```
 
 ### 3. Run Server
@@ -75,12 +77,10 @@ npm install
 
 ### 2. Environment Variables
 
-Create a `.env` file in `/frontend` folder
+Create a `.env` file in `/frontend` folder and add the following
 
 ```bash
-cp .env.example .env
-OR
-Manually copy .env.example files into your .env
+VITE_API_URL=http://localhost:3000/api/v1
 ```
 
 ### 3. Run Dev Server
